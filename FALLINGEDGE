@@ -1,0 +1,51 @@
+// rising edge detection example for arduino input
+// in this case to avoid bouncing when pressing the button for too long
+
+
+bool input_state= LOW; // input state high/low 
+bool previous_state= LOW; //  previeus input state 
+int status=1;
+
+int button = 7; // pin number for input ,on this case using press button
+int led1 = A0; // output pin number ,on this case show by LED 
+int led2 = A1; // output pin number with LED
+
+
+void setup() 
+{
+	
+	pinMode(led1, OUTPUT);	
+	pinMode(led2, OUTPUT);	
+	pinMode(button, INPUT);  
+	
+}
+
+void flip() /// main part of this topic
+
+{	
+	input_state = digitalRead(button);  // read button state
+	
+	if (input_state == LOW && previous_state == HIGH && status == 1) // detect any rising edge  on even press
+	{
+		status = 2;
+		digitalWrite(led1, HIGH);  // turn on led 1
+		digitalWrite(led2, LOW);	// turn off led 2	
+	}	
+	else if (input_state == LOW && previous_state == HIGH && status == 2)// detect any rising edge on odd press
+	{
+		
+		status = 1;
+		digitalWrite(led1, LOW); // turn off led 1
+		digitalWrite(led2, HIGH);// turn on led 2
+	}
+	
+	
+	previous_state = input_state;		// save previous button or input state
+	
+}
+
+void loop()
+{
+	flip(); 
+}
+
