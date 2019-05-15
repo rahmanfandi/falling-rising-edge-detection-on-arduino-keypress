@@ -1,4 +1,4 @@
-# embedded
+# Ditigal signal edge detection
 
 this project contains an example program for detection of faling edges and rising edges that can be used for Arduino programming.
 
